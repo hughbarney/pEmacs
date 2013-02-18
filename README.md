@@ -94,7 +94,7 @@ In an effort to reduce the code count and allow for a small number of
 enhancements I have removed what I never use and can easily live without.
 
 Bind  Function                       Reason
-====  =============================  =================
+-------------------------------------------
 ^X B  Switch to another buffer       ^XX is faster, dont have to type buffer name
 M-^V  Scroll other window down       never use
 M-^Z  Scroll other window up         never use
@@ -116,7 +116,7 @@ M-Z   Quick Exit                     rarely use - ^X^C is good enough
 
 
 pEmacs Key Bindings
-===================
+-------------------
 C-A   Begining-of-line
 C-B   backward-character
 C-C   copy-region
@@ -267,7 +267,7 @@ parts of the same buffer, or each may display a different one.
 ^X 2  Split the current window in two	^X 1   Show only current window
 ^X O  Move cursor to next window	
 
-------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 			       EXITING
 
 ^X^C  Exit. Any unsaved files will require confirmation.
