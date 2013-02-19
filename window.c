@@ -17,8 +17,6 @@ int nextwind (int f, int n);
 int prevwind (int f, int n);
 int onlywind (int f, int n);
 int splitwind (int f, int n);
-int enlargewind (int f, int n);
-int shrinkwind (int f, int n);
 WINDOW* wpopup ();
 
 /*
