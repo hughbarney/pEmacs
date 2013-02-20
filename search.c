@@ -211,7 +211,7 @@ isearch(int dir)
 				is_cpush(SRCH_MARK);
 			else {
 				(void)backchar(FFRAND, 1);
-				tcapbeep();
+				(*term.t_beep) ();
 				success = FALSE;
 				mlwrite("Failed I-search: %s", pat);
 			}
@@ -242,7 +242,7 @@ isearch(int dir)
 				is_cpush(SRCH_MARK);
 			else {
 				(void)forwchar(FFRAND, 1);
-				tcapbeep();
+				(*term.t_beep) ();
 				success = FALSE;
 			}
 			is_prompt(dir, pptr < 0, success);
@@ -271,7 +271,7 @@ isearch(int dir)
 			if (pptr == 0)
 				success = TRUE;
 			if (pptr == NPAT - 1)
-				tcapbeep();
+				(*term.t_beep) ();
 			else {
 				pat[pptr++] = c;
 				pat[pptr] = '\0';
@@ -282,7 +282,7 @@ isearch(int dir)
 					is_cpush(c);
 				else {
 					success = FALSE;
-					tcapbeep();
+					(*term.t_beep) ();
 					is_cpush(SRCH_ACCM);
 				}
 			} else
