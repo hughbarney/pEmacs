@@ -121,6 +121,7 @@ typedef struct BUFFER
 
 #define BFTEMP	0x01		/* Internal temporary buffer */
 #define BFCHG	0x02		/* Changed since last write */
+#define BFRO	0x04		/* Read Only Buffer */
 
 #define bfirstlp(buf)	(lforw((buf)->b_linep))
 #define blastlp(buf)	(lback((buf)->b_linep))
@@ -195,4 +196,5 @@ typedef struct
 {
   short k_code;			/* Key code */
   int (*k_fp) ();		/* Routine to handle it */
+  int k_flag;           /* data about the capabilities */
 } KEYTAB;

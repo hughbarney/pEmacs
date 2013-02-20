@@ -9,7 +9,7 @@ extern int quit ();	       /* Quit */
 extern int ctlxlp ();	       /* Begin macro */
 extern int ctlxrp ();	       /* End macro */
 extern int ctlxe ();	       /* Execute macro */
-extern int fileread ();	       /* Get a file, read only */
+extern int viewfile ();	       /* Get a file, read only */
 extern int filefind ();	       /* Get a file, read write */
 extern int filewrite ();       /* Write a file */
 extern int filesave ();	       /* Save current file */
@@ -49,6 +49,6 @@ extern int yank ();	       /* Yank back from killbuffer */
 extern int killregion ();      /* Kill region */
 extern int copyregion ();      /* Copy region to kill buffer */
 extern int gotoline ();	       /* go to a numbered line */
-extern int insfile ();	       /* insert a file */
 extern int nextbuffer ();      /* switch to the next buffer */
 extern int extendedcmd ();     /* parse ANSI/VT100 extended keys  */
+extern int togglereadonly ();     /* flip read only flag */

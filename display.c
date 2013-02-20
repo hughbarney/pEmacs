@@ -622,12 +622,17 @@ void modeline (WINDOW *wp)
   vtputc (lchar);
   bp = wp->w_bufp;
 
+  if ((bp->b_flag & BFRO) != 0)	/* "%" if readonly */
+    vtputc ('%');
+  else 
+    vtputc (lchar);
+
   if ((bp->b_flag & BFCHG) != 0)	/* "*" if changed */
     vtputc ('*');
   else
     vtputc (lchar);
 
-  n = 2;
+  n = 3;
   strncpy (tline, " pEmacs: ", 10);
 
   cp = &tline[0];

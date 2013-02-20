@@ -15,7 +15,7 @@
 #include "edef.h"		/* global definitions */
 #include "ebind.h"
 
-const char version[] = "pEmacs 1.0";
+const char version[] = "pEmacs 1.01";
 
 extern void getwinsize();
 extern void vtinit ();
@@ -30,6 +30,7 @@ extern int linsert (int f, int n);
 extern int anycb ();
 extern BUFFER *bfind ();
 extern int ttgetc();
+extern int rdonly();
 
 int main (int argc, char *argv[]);
 void edinit (char bname[]);
@@ -182,26 +183,38 @@ int execute (int c, int f, int n)
     {
       if (ktp->k_code == c)
 	{
-	  thisflag = 0;
-	  status = (*ktp->k_fp) (f, n);
-	  lastflag = thisflag;
-	  return (status);
+	  /* block if not suitable for a read only buffer */
+	  if (ktp->k_flag == BFRO && (curwp->w_bufp->b_flag & BFRO) == BFRO)
+		{
+		  return rdonly();
+		}
+	  else 
+		{
+		  thisflag = 0;
+		  status = (*ktp->k_fp) (f, n);
+		  lastflag = thisflag;
+		  return (status);
+		}
 	}
       ++ktp;
     }
 
+
   if ((c >= 0x20 && c <= 0x7E)	/* Self inserting */
       || (c >= 0xA0 && c <= 0xFE))
     {
+	  /* can we self insert */
+	  if (BFRO == (curwp->w_bufp->b_flag & BFRO))
+		return rdonly();
+
       if (n <= 0)
-	{			/* Fenceposts */
-	  lastflag = 0;
-	  return (n < 0 ? FALSE : TRUE);
-	}
+		{			/* Fenceposts */
+		  lastflag = 0;
+		  return (n < 0 ? FALSE : TRUE);
+		}
+
       thisflag = 0;		/* For the future */
-
       status = linsert (n, c);
-
       lastflag = thisflag;
       return (status);
     }
@@ -375,6 +388,17 @@ int extendedcmd (int f, int n)
       return (FALSE);
     }
   return cmd(f, n);
+}
+
+/*
+ * tell the user that this command is illegal while we are in
+ * VIEW (read-only) mode
+ */
+int rdonly(void)
+{
+  (*term.t_beep) ();
+  mlwrite("(Key illegal in VIEW mode)");
+  return FALSE;
 }
 
 void debug(char *format, ...)

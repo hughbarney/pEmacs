@@ -9,7 +9,6 @@
  */
 
 short kbdm[NKBDM] = {CTLX | ')'}; /* Macro */
-int fillcol = 72;		/* Current fill column */
 char pat[NPAT];			/* Search pattern */
 char rpat[NPAT];		/* replacement pattern */
 int revexist = FALSE;
@@ -38,16 +37,12 @@ short *kbdmop;			/* Output pointer for above */
  * initialized global external declarations
  */
 
-extern int fillcol;		/* Fill column */
 extern short kbdm[];		/* Holds kayboard macro data */
 extern char pat[];		/* Search pattern */
 extern char rpat[];		/* Replacement pattern */
 extern int eolexist;		/* does clear to EOL exist? */
 extern int revexist;		/* does reverse video exist? */
-extern char *modename[];	/* text names of modes */
-extern char modecode[];		/* letters to represent modes */
 extern KEYTAB keytab[];		/* key bind to functions table */
-extern int gmode;		/* global editor mode */
 extern int sgarbf;		/* State of screen unknown */
 extern int mpresf;		/* Stuff in message line */
 extern int clexec;		/* command line execution flag */

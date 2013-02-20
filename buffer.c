@@ -15,6 +15,7 @@ extern void mlwrite ();
 extern void mlerase ();
 extern int mlyesno (char *prompt);
 extern void lfree (LINE *lp);
+extern void upmode();
 extern WINDOW *wpopup ();
 extern LINE *lalloc ();
 
@@ -23,12 +24,23 @@ int nextbuffer (int f, int n);
 int killbuffer (int f, int n);
 int zotbuf (BUFFER *bp);
 int listbuffers (int f, int n);
+int togglereadonly(int f, int n);
 int makelist ();
 void itoa (char buf[], int width, int num);
 int addline (char *text);
 int anycb ();
 BUFFER* bfind (char *bname, int cflag, int bflag);
 int bclear (BUFFER *bp);
+
+/* 
+ * invert buffer read only status
+ */
+int togglereadonly(int f, int n)
+{
+  curwp->w_bufp->b_flag ^= BFRO;
+  upmode();
+  return TRUE;
+}
 
 /*
  * make buffer BP current

@@ -16,49 +16,18 @@ extern int ffgetline (char buf[], int nbuf);
 extern int ffwopen (char *fn);
 extern int ffclose ();
 extern int ffputline (char buf[], int nbuf);
+extern int togglereadonly(int, int);
 extern BUFFER *bfind ();
 extern LINE *lalloc ();
 
-int fileread (int f, int n);
-int insfile (int f, int n);
 int filefind (int f, int n);
+int viewfile (int f, int n);
 int getfile (char fname[]);
 int readin (char fname[]);
 void makename (char bname[], char fname[]);
 int filewrite (int f, int n);
 int filesave (int f, int n);
 int writeout (char *fn);
-int ifile (char fname[]);
-
-/*
- * Read a file into the current buffer. This is really easy; all you do it
- * find the name of the file, and call the standard "read a file into the
- * current buffer" code. Bound to "C-X C-R"
- */
-int fileread (int f, int n)
-{
-  int s;
-  char fname[NFILEN];
-
-  if ((s = mlreply ("Read file: ", fname, NFILEN)) != TRUE)
-    return (s);
-  return (readin (fname));
-}
-
-/*
- * Insert a file into the current buffer. This is really easy; all you do it
- * find the name of the file, and call the standard "insert a file into the
- * current buffer" code. Bound to "C-X C-I".
- */
-int insfile (int f, int n)
-{
-  int s;
-  char fname[NFILEN];
-
-  if ((s = mlreply ("Insert file: ", fname, NFILEN)) != TRUE)
-    return (s);
-  return (ifile (fname));
-}
 
 /*
  * Select a file for editing. Look around to see if you can find the fine in
@@ -71,9 +40,22 @@ int filefind (int f, int n)
   char fname[NFILEN];		/* file user wishes to find */
   int s;			/* status return */
 
-  if ((s = mlreply ("Find file: ", fname, NFILEN)) != TRUE)
+  if ((s = mlreply ("Find File: ", fname, NFILEN)) != TRUE)
     return (s);
   return (getfile (fname));
+}
+
+int viewfile (int f, int n)
+{
+  char fname[NFILEN];		/* file user wishes to find */
+  int s;			/* status return */
+
+  if ((s = mlreply ("View File: ", fname, NFILEN)) != TRUE)
+    return (s);
+
+  if ( (s = (getfile (fname))) == TRUE)
+	togglereadonly(f,n);
+  return s;
 }
 
 int getfile (char fname[])
@@ -331,90 +313,6 @@ int writeout (char *fn)
   else				/* ignore close error */
     ffclose ();			/* if a write error */
   if (s != FIOSUC)		/* some sort of error */
-    return (FALSE);
-  return (TRUE);
-}
-
-/*
- * Insert file "fname" into the current buffer, Called by insert file command.
- * Return the final status of the read.
- */
-int ifile (char fname[])
-{
-  LINE *lp0, *lp1, *lp2;
-  BUFFER *bp;
-  char line[NLINE];
-  int i, s, nbytes, nline;
-  int lflag;			/* any lines longer than allowed? */
-
-  bp = curbp;			/* Cheap */
-  bp->b_flag |= BFCHG;		/* we have changed */
-  bp->b_flag &= ~BFTEMP;	/* and are not temporary */
-  if ((s = ffropen (fname)) == FIOERR) /* Hard file open */
-    goto out;
-  if (s == FIOFNF)
-    {				/* File not found */
-      mlwrite ("[No such file]");
-      return (FALSE);
-    }
-  mlwrite ("[Inserting file]");
-
-  /* back up a line and save the mark here */
-  curwp->w_dotp = lback (curwp->w_dotp);
-  curwp->w_doto = 0;
-  curwp->w_markp = curwp->w_dotp;
-  curwp->w_marko = 0;
-
-  nline = 0;
-  lflag = FALSE;
-  while ((s = ffgetline (line, NLINE)) == FIOSUC || s == FIOLNG)
-    {
-      if (s == FIOLNG)
-	lflag = TRUE;
-      nbytes = strlen (line);
-      if ((lp1 = lalloc (nbytes)) == NULL)
-	{
-	  s = FIOERR;		/* keep message on the */
-	  break;		/* display */
-	}
-      lp0 = curwp->w_dotp;	/* line previous to insert */
-      lp2 = lp0->l_fp;		/* line after insert */
-
-      /* re-link new line between lp0 and lp2 */
-      lp2->l_bp = lp1;
-      lp0->l_fp = lp1;
-      lp1->l_bp = lp0;
-      lp1->l_fp = lp2;
-
-      /* and advance and write out the current line */
-      curwp->w_dotp = lp1;
-      for (i = 0; i < nbytes; ++i)
-	lputc (lp1, i, line[i]);
-      ++nline;
-    }
-  ffclose ();			/* Ignore errors */
-  curwp->w_markp = lforw (curwp->w_markp);
-  if (s == FIOEOF)
-    {				/* Don't zap message! */
-      if (nline == 1)
-	mlwrite ("[Inserted 1 line]");
-      else
-	mlwrite ("[Inserted %d lines]", nline);
-    }
-  if (lflag)
-    mlwrite ("[Inserted %d line(s), Long lines wrapped]", nline);
- out:
-  /* advance to the next line and mark the window for changes */
-  curwp->w_dotp = lforw (curwp->w_dotp);
-  curwp->w_flag |= WFHARD;
-
-  /* copy window parameters back to the buffer structure */
-  curbp->b_dotp = curwp->w_dotp;
-  curbp->b_doto = curwp->w_doto;
-  curbp->b_markp = curwp->w_markp;
-  curbp->b_marko = curwp->w_marko;
-
-  if (s == FIOERR)		/* False if error */
     return (FALSE);
   return (TRUE);
 }
