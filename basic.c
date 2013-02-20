@@ -135,7 +135,7 @@ int gotoline (int f, int n)
   char *ep;
   int l,s;
 
-  if ((s = mlreplyt("Goto line: ", buf, sizeof(buf), '\n')) != TRUE )
+  if ((s = mlreplyt("Goto Line: ", buf, sizeof(buf), '\n')) != TRUE )
 	  return s;
 
   if (buf[0] == '\0')

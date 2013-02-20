@@ -227,7 +227,7 @@ int filewrite (int f, int n)
   char fname[NFILEN];
   int s;
 
-  if ((s = mlreply ("Write file: ", fname, NFILEN)) != TRUE)
+  if ((s = mlreply ("Write File: ", fname, NFILEN)) != TRUE)
     return (s);
   if ((s = writeout (fname)) == TRUE)
     {

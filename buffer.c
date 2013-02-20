@@ -124,7 +124,7 @@ int killbuffer (int f, int n)
   char bufn[NBUFN];
   int s;
 
-  if ((s = mlreply ("Kill buffer: ", bufn, NBUFN)) != TRUE)
+  if ((s = mlreply ("Kill Buffer: ", bufn, NBUFN)) != TRUE)
     return (s);
   if ((bp = bfind (bufn, FALSE, 0)) == NULL) /* Easy if unknown */
     return (TRUE);
