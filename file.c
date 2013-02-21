@@ -7,9 +7,10 @@
 #include "estruct.h"
 #include "edef.h"
 
+extern int getfilename (char *prompt, char *buf, int nbuf);
 extern int mlreply (char *prompt, char *buf, int nbuf);
 extern int swbuffer (BUFFER *bp);
-extern void mlwrite ();
+extern void mlwrite (char *,...);
 extern int bclear (BUFFER *bp);
 extern int ffropen (char *fn);
 extern int ffgetline (char buf[], int nbuf);
@@ -40,7 +41,7 @@ int filefind (int f, int n)
   char fname[NFILEN];		/* file user wishes to find */
   int s;			/* status return */
 
-  if ((s = mlreply ("Find File: ", fname, NFILEN)) != TRUE)
+  if ((s = getfilename("Find File: ", fname, NFILEN)) != TRUE)
     return (s);
   return (getfile (fname));
 }
@@ -50,7 +51,7 @@ int viewfile (int f, int n)
   char fname[NFILEN];		/* file user wishes to find */
   int s;			/* status return */
 
-  if ((s = mlreply ("View File: ", fname, NFILEN)) != TRUE)
+  if ((s = getfilename("View File: ", fname, NFILEN)) != TRUE)
     return (s);
 
   if ( (s = (getfile (fname))) == TRUE)
