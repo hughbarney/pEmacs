@@ -15,16 +15,16 @@ in his original README file.
    own requirements... Feel free to do a code-fork and distribute
    your own perfect text editor.'
 
-The design goals of pEmacs are threefold.
+The design goals of pEmacs were threefold.
 
    1. To replace the early MicroEMACS style search with incremental search
-   2. To add filename completion as per MicroEMACS 3.10 or Mg Emacs
+   2. To add filename completion as per uemacs/PK or Mg Emacs
    3. To achieve further reduction in the code footprint.
 
-So far goals 1,3 have been achieved, 2 is yet to be done. I see
-pEmacs as an attempt to find the perfect balance between minimalism
-(ie the smallest functional emacs and code) whilst still retaining
-the majority feeling of Emacs. 
+As of pEmacs v1.02 all three goals have been achieved. I see pEmacs as
+an attempt to find the perfect balance between minimalism (ie the
+smallest functional emacs and code) whilst still retaining the
+majority feeling of Emacs.
 
    'A designer knows he has achieved perfection not when there is
    nothing left to add, but when there is nothing left to take away'
@@ -76,10 +76,16 @@ M-R query search and replace (same as M-%)
 printing %s formatted strings.
 
 
-pEmacs V1.01,  February 2013
-===========================
+pEmacs V1.01, 19 Feb 2013
+=========================
 1) Stripped out: ^X^R Read file,  ^X^I Insert File
 2) Added ^X^V View File, ^X^Q Toggle Read only
+
+pEmacs V1.02, 21 Feb 2013
+=========================
+1) Added filename completion for ^X^F and ^X^R
+2) Add entry in extendedcommand for the DEL key
+  - note this may not work on all keyboards
 
 
 Comaprisons with Other MicroEMACS Implementations
@@ -87,7 +93,7 @@ Comaprisons with Other MicroEMACS Implementations
 
 Editor         Binary   BinSize     KLOC  Files
 -----------------------------------------------
-pEmacs         pe         44824     5.2K     14
+pEmacs         pe         44824     5.4K     15
 Esatz-Emacs    ee         59050     5.7K     14
 uEmacs/Pk      em        147546    17.5K     34
 ue3.10         uemacs    171664    52.4K     16
@@ -122,7 +128,8 @@ M-D   Delete next word               luxury
 ^O    Open Line                      never use, CR is just as good
 ^U    Universal Argument             never use
 M-Z   Quick Exit                     rarely use - ^X^C is good enough
-
+^X^R  Read file                      strange implemention,is not a view file
+^X^I  Insert File                    rarely use, ^X^F and copy region and paste good enough
 
 pEmacs Key Bindings
 -------------------
@@ -254,18 +261,13 @@ changes to be kept. Many buffers may be activated at once.
 			  READING FROM DISK
 
 ^X^F  Find file; read into a new buffer created from filename.
-      (This is the usual way to edit a new file.)
-^X^R  Read file into current buffer, erasing its previous contents.
-      No new buffer will be created.
-^X^I  Insert file into current buffer at cursor's location.
+^X^V  Read file and set into view mode
 
 ------------------------------------------------------------------------------
 			    SAVING TO DISK
 
-^X^S  Save current buffer to disk, using the buffer's filename as the name of
-      the disk file. Any disk file of that name will be overwritten.
-^X^W  Write current buffer to disk. Type in a new filename at the prompt to
-      write to; it will also become the current buffer's filename.
+^X^S  Save current buffer to disk, using the buffer's filename
+^X^W  Write current buffer to disk. Type in a new filename at the prompt
 
 ------------------------------------------------------------------------------
 			   MULTIPLE WINDOWS
