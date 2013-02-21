@@ -23,10 +23,10 @@ BINDIR=	${PREFIX}/bin
 HFILES=	estruct.h edef.h efunc.h ebind.h
 
 CFILES=	basic.c buffer.c display.c file.c fileio.c line.c main.c \
-	random.c region.c strlcpy.c search.c tcap.c termio.c window.c
+	random.c region.c strlcpy.c search.c tcap.c termio.c window.c complete.c
 
 OFILES=	basic.o buffer.o display.o file.o fileio.o line.o main.o \
-	random.o region.o strlcpy.c search.o tcap.o termio.o window.o
+	random.o region.o strlcpy.c search.o tcap.o termio.o window.o complete.o
 
 all:	$(OFILES)
 	$(CC) $(CFLAGS) $(OFILES) -o $(EXEC) $(LFLAGS)
@@ -50,6 +50,7 @@ main.o: main.c estruct.h edef.h efunc.h ebind.h
 random.o: random.c estruct.h edef.h
 region.o: region.c estruct.h edef.h
 strlcpy.o: strlcpy.c
+complete.o: complete.c
 search.o: search.c estruct.h edef.h
 tcap.o: tcap.c estruct.h edef.h
 	$(CC) $(CFLAGS) $(DUMBCONS) -c $<
