@@ -6,6 +6,7 @@
 
 #include <stdlib.h>		/* free(3), malloc(3) */
 #include <string.h>		/* strncpy(3) */
+#include <stdio.h>
 #include "estruct.h"
 #include "edef.h"
 
@@ -18,6 +19,7 @@ extern void lfree (LINE *lp);
 extern void upmode();
 extern WINDOW *wpopup ();
 extern LINE *lalloc ();
+extern void debug(char *,...);
 
 int swbuffer (BUFFER *bp);
 int nextbuffer (int f, int n);
@@ -112,23 +114,58 @@ int nextbuffer (int f, int n)
 }
 
 /*
- * Dispose of a buffer, by name. Ask for the name. Look it up (don't get too
- * upset if it isn't there at all!). Get quite upset if the buffer is being
- * displayed. Clear the buffer (ask if the buffer has been changed). Then free
- * the header line and the buffer header. Bound to "C-X K".
+ * Dispose of a buffer, by name. Ask for the name. Look it up.
+ * Switch to an alternate buffer that is not an internal buffer
+ * or select the scratch buffer. Ask if buffer has been changed.
+ * Clear the buffer, then free the header line and the buffer header
+ * Bound to "C-X K".
  */
 /* ARGSUSED0 */
 int killbuffer (int f, int n)
 {
   BUFFER *bp;
+  BUFFER *bp_alt;
   char bufn[NBUFN];
+  char prompt[NFILEN];
   int s;
 
-  if ((s = mlreply ("Kill Buffer: ", bufn, NBUFN)) != TRUE)
-    return (s);
-  if ((bp = bfind (bufn, FALSE, 0)) == NULL) /* Easy if unknown */
-    return (TRUE);
-  return (zotbuf (bp));
+  sprintf(prompt, "Kill Buffer: (default %s) ", curbp->b_bname);
+  s = mlreply (prompt, bufn, NBUFN);
+
+  if (s == ABORT)
+	return ABORT;
+  else if (s == FALSE) {
+	bp = curbp;
+  } else {
+	/* return if cant find named buffer */
+	if ((bp = bfind (bufn, FALSE, 0)) == NULL)
+	  return FALSE;
+  }
+
+  /* find a buffer to switch to, not this one and not an internal buffer */
+  bp_alt = bheadp;
+  while (bp_alt != NULL)
+	{
+	  if (bp_alt != bp && (bp_alt->b_flag & BFTEMP) != BFTEMP)
+		break;
+	  bp_alt = bp_alt->b_bufp;
+	}
+
+  /* no alternate buffer, try for scratch */
+  if (bp_alt == NULL) {
+	bp_alt = bfind("*scratch*", FALSE, 0);
+  }
+
+  /* create *scratch* for alternate buffer, if we fail return */
+  if (bp_alt == NULL) {
+	if ((bp_alt = bfind("*scratch*", TRUE, 0)) == NULL)
+	  return (FALSE);
+  }
+
+  swbuffer(bp_alt);
+  s = zotbuf(bp);
+  mlerase();
+  return s;
 }
 
 /* kill the buffer pointed to by bp
@@ -138,11 +175,9 @@ int zotbuf (BUFFER *bp)
   BUFFER *bp1, *bp2;
   int s;
 
+  /* we ony get here if there is only *scratch* left */
   if (bp->b_nwnd != 0)
-    {				/* Error if on screen */
-      mlwrite ("Buffer is being displayed");
-      return (FALSE);
-    }
+	return (FALSE); /* fail silently */
   if ((s = bclear (bp)) != TRUE) /* Blow text away */
     return (s);
   free (bp->b_linep);		/* Release header line */

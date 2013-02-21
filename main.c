@@ -15,7 +15,7 @@
 #include "edef.h"		/* global definitions */
 #include "ebind.h"
 
-const char version[] = "pEmacs 1.02";
+const char version[] = "pEmacs 1.03";
 
 extern void getwinsize();
 extern void vtinit ();
@@ -62,7 +62,7 @@ int main (int argc, char *argv[])
 
   /* initialize the editor and process the startup file */
   getwinsize();			/* find out the "real" screen size */
-  strncpy (bname, "main", 5);	/* default buffer name */
+  strncpy (bname, "*scratch*", 10);	/* default buffer name */
   edinit (bname);		/* Buffers, windows */
   vtinit ();			/* Displays */
   ffile = TRUE;			/* no file to edit yet */

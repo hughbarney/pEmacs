@@ -23,7 +23,7 @@ So far I have tested pEmacs on Ubuntu Linux but hope to follow up on Arch Linux 
 *hughbarney@gmail.com February 2013*
 
 
-###pEmacs V1.0,  February 2013
+##pEmacs V1.0,  February 2013
 
 1. In an effort to reduce the code count and allow for a small number of enhancements I have removed what I never use and can easily live without.  (See features removed).  Esratz-Emacs is 5777 lines of code.  pEmacs 1.0 is 5286, this leaves me around 300 lines to implement filename completion.
 
@@ -43,7 +43,7 @@ So far I have tested pEmacs on Ubuntu Linux but hope to follow up on Arch Linux 
 7. Fixed problem with mlwrite() which caused corruption when printing %s formatted strings.
 
 
-###pEmacs V1.01, 19 Feb 2013
+##pEmacs V1.01, 19 Feb 2013
 1. Stripped out: 
     ^X^R Read file
     ^X^I Insert File
@@ -51,10 +51,13 @@ So far I have tested pEmacs on Ubuntu Linux but hope to follow up on Arch Linux 
     ^X^V View File
     ^X^Q Toggle Read only
 
-###pEmacs V1.02, 21 Feb 2013
+##pEmacs V1.02, 21 Feb 2013
 1. Added filename completion for ^X^F and ^X^R
 2. Add entry in extendedcommand for the DEL key - note this may not work on all keyboards
 
+##pEmacs V1.03, 21 Feb 2013
+1. Modified killbuffer to take current buffer as default. This is inline with Mg and Zile.
+2. Renamed main buffer to *scratch*
 
 ##Comaprisons with Other MicroEMACS Implementations
 
@@ -148,11 +151,11 @@ In an effort to reduce the code count and allow for a small number of enhancemen
     ^X=   Position report; displays line number, buffer size, etc.  
   
 
-##pEmacs 1.0 Desk Card (Feb 2013)
+##pEmacs 1.03 Desk Card (Feb 2013)
     M-  means to use the <ESC> key prior to using another key  
     ^A  means to use the control key at the same time as the 'A' key  
 
-##Moving the cursor
+###Moving the cursor
     ^F   Forward character   	
     ^B   Backward character  	
     ^N   Next line			
@@ -167,26 +170,26 @@ In an effort to reduce the code count and allow for a small number of enhancemen
     M-V or [Page Up] Scroll up		
     Arrow keys are active
 
-##Deleting and inserting
+###Deleting and inserting
     <-   Delete previous character	
     ^D   Delete next character		
     ^K   Delete to end of line		
 
-##Formatting and transposing
+###Formatting and transposing
     ^Q   Quote next key, so that control codes may be entered into text.
 
-##Searching
+###Searching
     ^S   Incremental Search forward, Esc to exit, ^G to abort, ^S search next
     ^R   As above, but reverse search from cursor position.
 
-##Replacing
+###Replacing
     M-%  Replace with query. Answer with:
 	    Y   replace & continue		N   no replacement & continue
 	    !   replace the rest		?   Get a list of options
 	    .   exit and return to entry point
 	    ^G,'q' or <return> exit and remain at current location
 
-##Copying and moving
+###Copying and moving
     ^@ or M-<spacebar> Set mark at current position.
     ^W   Delete region.
     M-W  Copy region to kill buffer.
@@ -199,40 +202,42 @@ Generally, the procedure for copying or moving text is:
 2. Delete it (with ^W) or copy it (with M-W) into the kill buffer.
 3. Move the cursor to the desired location and yank it back (with ^Y).
 
-##Multiple buffers
-A buffer contains a COPY of a document being edited, and must be saved for changes to be kept. Many buffers may be activated at once.
+###Multiple buffers
     ^X^B  Show buffer directory in a window (^X 1 to remove).
     ^X K  Delete a non-displayed buffer.
     ^X X  Switch to next buffer in buffer list.
 
-##Reading from disk
+A buffer contains a COPY of a document being edited, and must be saved for changes to be kept. Many buffers may be activated at once.
+
+###Reading from disk
     ^X^F  Find file; read into a new buffer created from filename.
     ^X^V  Read file and set into view mode
 
-##Saving to disk
+###Saving to disk
     ^X^S  Save current buffer to disk, using the buffer's filename
     ^X^W  Write current buffer to disk. Type in a new filename at the prompt
 
-##Multiple windows
-Many windows may be visible at once on the screen. Windows may show different parts of the same buffer, or each may display a different one.
+###Multiple windows
     ^X 2  Split the current window in two
     ^X 1  Show only current window
     ^X O  Move cursor to next window	
 
-##Exiting
+Many windows may be visible at once on the screen. Windows may show different parts of the same buffer, or each may display a different one.
+
+###Exiting
     ^X^C  Exit. Any unsaved files will require confirmation.
 
-##Macros
+###Macros
     ^X (  Start recording a keyboard macro. Typing ^G or an error aborts.
     ^X )  Stop recording macro.
     ^X E  Execute macro.
 
-##Special keys
+###Special keys
     ^G   Cancel current command.
     ^L   Redraws the screen completely.
     ^X = Position report; displays line number, buffer size, etc.
 
-#Ersatz-Emacs Original README
+##Ersatz-Emacs Original README
     This shar file contains the source to a microemacs-derived text editor
     that I have been personally hacking on for over a decade.
     
