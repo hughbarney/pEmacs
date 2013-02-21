@@ -15,7 +15,7 @@
 #include "edef.h"		/* global definitions */
 #include "ebind.h"
 
-const char version[] = "pEmacs 1.01";
+const char version[] = "pEmacs 1.02";
 
 extern void getwinsize();
 extern void vtinit ();
@@ -379,7 +379,9 @@ int extendedcmd (int f, int n)
     case 'C': cmd = forwchar; break; /* right arrow */
     case 'D': cmd = backchar; break; /* left arrow */
     case 'H': cmd = gotobol; break;  /* usually home */
-    case 'W': cmd = gotoeol; break;  /* usually end */
+    case 'W': cmd = gotoeol; break;  /* maybe end */
+    case 'F': cmd = gotoeol; break;  /* maybe end */
+    case '3': cmd = forwdel; getctl(); break; /* maybe delete */
     case '5': cmd = backpage; getctl(); break;
     case '6': cmd = forwpage; getctl(); break;
     case '7': cmd = gotobob; getctl(); break;
