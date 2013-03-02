@@ -25,7 +25,7 @@ HFILES=	estruct.h edef.h efunc.h ebind.h
 CFILES=	basic.c buffer.c display.c file.c fileio.c line.c main.c \
 	random.c region.c strlcpy.c search.c tcap.c termio.c window.c complete.c
 
-OFILES=	basic.o buffer.o display.o file.o fileio.o line.o main.o \
+OFILES=	basic.o buffer.o bufmenu.o display.o file.o fileio.o line.o main.o \
 	random.o region.o strlcpy.c search.o tcap.o termio.o window.o complete.o
 
 all:	$(OFILES)
@@ -42,6 +42,7 @@ clean:
 
 basic.o: basic.c estruct.h edef.h
 buffer.o: buffer.c estruct.h edef.h
+bufmenu.o: bufmenu.c estruct.h edef.h
 display.o: display.c estruct.h edef.h
 file.o: file.c estruct.h edef.h
 fileio.o: fileio.c estruct.h

@@ -37,6 +37,7 @@ extern int prevwind ();	       /* Move to the previous window */
 extern int onlywind ();	       /* Make current window only one */
 extern int splitwind ();       /* Split current window */
 extern int listbuffers ();     /* Display list of buffers */
+extern int buffermenu ();     /* Buffer Menu */
 extern int killbuffer ();      /* Make a buffer go away */
 extern int refresh ();	       /* Refresh the screen */
 extern int tab ();	       /* Insert tab */

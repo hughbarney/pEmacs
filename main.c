@@ -15,7 +15,7 @@
 #include "edef.h"		/* global definitions */
 #include "ebind.h"
 
-const char version[] = "pEmacs 1.03";
+const char version[] = "pEmacs 1.04";
 
 extern void getwinsize();
 extern void vtinit ();

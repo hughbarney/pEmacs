@@ -41,9 +41,11 @@
 #define CTRL_H 8
 #define CTRL_I 9
 #define CTRL_M 13
-#define CTRL_S 19
-#define CTRL_R 18
+#define CTRL_N 14
+#define CTRL_P 16
 #define CTRL_Q 17
+#define CTRL_R 18
+#define CTRL_S 19
 #define BACKSPACE 127
 
 #define NSRCH	  128	/* Undoable search commands.	 */
