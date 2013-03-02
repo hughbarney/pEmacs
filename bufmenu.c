@@ -108,6 +108,7 @@ int buffermenu(int f, int n)
 	switch (c) {
 	case 'n':
 	case 'N':
+	case ' ':
 	case CTRL_N:
 	  if (bufcount == bufptr) {
 		(*term.t_beep) ();
@@ -120,6 +121,7 @@ int buffermenu(int f, int n)
 	case 'p':
 	case 'P':
 	case CTRL_P:
+	case BACKSPACE:
 	  if (bufptr == 1) {
 		(*term.t_beep) ();
 		break;
@@ -129,6 +131,7 @@ int buffermenu(int f, int n)
 	  break;
 
 	case '1':
+	case CTRL_M:
 	  bp = get_buffer(bufptr);
 	  swbuffer(bp);
 	  onlywind(0,0);
