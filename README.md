@@ -215,7 +215,8 @@ Generally, the procedure for copying or moving text is:
 3. Move the cursor to the desired location and yank it back (with ^Y).
 
 ###Multiple buffers
-    ^X^B  Show buffer directory in a window (^X 1 to remove).
+    ^XB   Show buffer directory in a window (^X 1 to remove).
+    ^X^B  Buffer menu
     ^X K  Delete a non-displayed buffer.
     ^X X  Switch to next buffer in buffer list.
 
@@ -223,16 +224,16 @@ A buffer contains a COPY of a document being edited, and must be saved for chang
 
 ###Buffer Menu
     Diplay the buffer list in a window and operate on it
-    using the following keys
+    using the following keys, (bound to ^X^B)
     
-    N,n, CTRL+N, down-arrow:   move to next line
-    P,p, CTRL+P, up-arrow:     move to prev line
-    s  save buffer at line
-    v  toggle read only flag
-    k  kill buffer at line
-    1  select buffer at line
-    2  select buffer in split window below original window
-    q,Q,x,X exit buffer menu
+    Space, N,n, CTRL+N, down-arrow:   move to next line
+    Backspace, P,p, CTRL+P, up-arrow:     move to prev line
+    s:  save buffer at line
+    v:  toggle read only flag
+    k:  kill buffer at line
+    Enter, 1:  select buffer at line
+    2:  select buffer in split window below original window
+    q,Q,x,X: exit buffer menu
 
 ###Reading from disk
     ^X^F  Find file; read into a new buffer created from filename.
