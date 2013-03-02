@@ -255,20 +255,21 @@ int makelist ()
   BUFFER *bp;
   LINE *lp;
   char *cp1, *cp2;
-  char b[7], line[128];
+  char b[8], line[128];
   int nbytes, s, c;
 
   blistp->b_flag &= ~BFCHG;	/* Don't complain! */
   if ((s = bclear (blistp)) != TRUE) /* Blow old text away */
     return (s);
   strncpy (blistp->b_fname, "", 1);
-  if (addline ("AC    Size Buffer	  File") == FALSE ||
-      addline ("-- ------- ------	  ----") == FALSE)
+  if (addline ("ACV    Size Buffer           File") == FALSE ||
+      addline ("--- ------- ------           ----") == FALSE)
     return (FALSE);
   bp = bheadp;
 
   /* build line to report global mode settings */
   cp1 = &line[0];
+  *cp1++ = ' ';
   *cp1++ = ' ';
   *cp1++ = ' ';
   *cp1++ = ' ';
@@ -294,6 +295,12 @@ int makelist ()
 	*cp1++ = '*';
       else
 	*cp1++ = ' ';
+
+      /* output status of readonly flag */
+      if ((bp->b_flag & BFRO) != 0) /* "%" if view mode */
+	*cp1++ = '%';
+      else
+	*cp1++ = ' ';
       *cp1++ = ' ';		/* Gap */
 
       nbytes = 0;			/* Count bytes in buf */
@@ -303,7 +310,7 @@ int makelist ()
 	  nbytes += llength (lp) + 1;
 	  lp = lforw (lp);
 	}
-      itoa (b, 6, nbytes);	/* 6 digit buffer size */
+      itoa (b, 7, nbytes);	/* 7 digit buffer size */
       cp2 = &b[0];
       while ((c = *cp2++) != 0)
 	*cp1++ = (char)c;
@@ -314,7 +321,7 @@ int makelist ()
       cp2 = &bp->b_fname[0];	/* File name */
       if (*cp2 != 0)
 	{
-	  while (cp1 < &line[2 + 1 + 5 + 1 + 6 + 1 + NBUFN]) /* XXX ??? */
+	  while (cp1 < &line[3 + 1 + 7 + 1 + NBUFN + 1]) /* ACV, space, size, space, bufname, space */
 	    *cp1++ = ' ';
 	  while ((c = *cp2++) != 0)
 	    {
