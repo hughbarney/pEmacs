@@ -175,6 +175,8 @@ int buffermenu(int f, int n)
 	  break;
 
 	  /* kill buffer */
+	case 'd':
+	case 'D':
 	case 'k':
 	case 'K':
 	  bp = get_buffer(bufptr);
@@ -198,8 +200,10 @@ int buffermenu(int f, int n)
 
 	  if (valid_buf(org_bp) == TRUE)
 		swbuffer(org_bp);
-	  else
-		swbuffer(bheadp);
+	  else {
+		bp = get_scratch();
+		swbuffer(bp);
+	  }
 	  onlywind(0,0);
 	  mlerase();
 	  return TRUE;
