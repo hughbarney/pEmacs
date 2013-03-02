@@ -19,6 +19,7 @@ As of pEmacs v1.02 all three goals have been achieved. I see pEmacs as an attemp
 
 So far I have tested pEmacs on Ubuntu Linux but hope to follow up on Arch Linux and the Raspberry Pi Debain image at some point soon.
 
+All code here is public domain, same as I received it.
 
 *hughbarney@gmail.com February 2013*
 
@@ -59,11 +60,19 @@ So far I have tested pEmacs on Ubuntu Linux but hope to follow up on Arch Linux 
 1. Modified killbuffer to take current buffer as default. This is inline with Mg and Zile.
 2. Renamed main buffer to *scratch*
 
+##pEmacs V1.04, 02 Mar 2013
+1. Fixed bug where we allowed [List] buffer to be killed
+2. Fixed alignment issues with listbuffers
+3. Added readonly flag to list buffer display
+4. Added buffermenu bound to ^X^B
+5. Moved listbuffers to ^XB
+
+
 ##Comaprisons with Other MicroEMACS Implementations
 
     Editor         Binary   BinSize     KLOC  Files  
 
-    pEmacs         pe         44824     5.4K     15    
+    pEmacs         pe         59465     5.7K     16    
     Esatz-Emacs    ee         59050     5.7K     14  
     uEmacs/Pk      em        147546    17.5K     34  
     ue3.10         uemacs    171664    52.4K     16    
@@ -151,7 +160,7 @@ In an effort to reduce the code count and allow for a small number of enhancemen
     ^X=   Position report; displays line number, buffer size, etc.  
   
 
-##pEmacs 1.03 Desk Card (Feb 2013)
+##pEmacs 1.04 Desk Card (Mar 2013)
     M-  means to use the <ESC> key prior to using another key  
     ^A  means to use the control key at the same time as the 'A' key  
 
@@ -208,6 +217,19 @@ Generally, the procedure for copying or moving text is:
     ^X X  Switch to next buffer in buffer list.
 
 A buffer contains a COPY of a document being edited, and must be saved for changes to be kept. Many buffers may be activated at once.
+
+###Buffer Menu
+    Diplay the buffer list in a window and operate on it
+    using the following keys
+    
+    N,n, CTRL+N, down-arrow:   move to next line
+    P,p, CTRL+P, up-arrow:     move to prev line
+    s  save buffer at line
+    v  toggle read only flag
+    k  kill buffer at line
+    1  select buffer at line
+    2  select buffer in split window below original window
+    q,Q,x,X exit buffer menu
 
 ###Reading from disk
     ^X^F  Find file; read into a new buffer created from filename.
