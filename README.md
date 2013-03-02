@@ -67,6 +67,9 @@ All code here is public domain, same as I received it.
 4. Added buffermenu bound to ^X^B
 5. Moved listbuffers to ^XB
 
+##pEmacs V1.05, 02 Mar 2013
+1. Added additional navigation to buffer menu
+Space=down, BACKSPACE=up, Enter=Select
 
 ##Comaprisons with Other MicroEMACS Implementations
 
