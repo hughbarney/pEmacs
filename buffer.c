@@ -33,6 +33,7 @@ int addline (char *text);
 int anycb ();
 BUFFER* bfind (char *bname, int cflag, int bflag);
 int bclear (BUFFER *bp);
+BUFFER* get_scratch(void);
 
 /* 
  * invert buffer read only status
@@ -142,6 +143,13 @@ int killbuffer (int f, int n)
 	  return FALSE;
   }
 
+  /* beep if attempt to kill buffer list */
+  if (bp == blistp) {
+	(*term.t_beep) ();
+	mlerase();
+	return FALSE;
+  }
+
   /* find a buffer to switch to, not this one and not an internal buffer */
   bp_alt = bheadp;
   while (bp_alt != NULL)
@@ -151,14 +159,12 @@ int killbuffer (int f, int n)
 	  bp_alt = bp_alt->b_bufp;
 	}
 
-  /* no alternate buffer, try for scratch */
+  /* no alternate buffer, try for scratch or create it */
   if (bp_alt == NULL) {
-	bp_alt = bfind("*scratch*", FALSE, 0);
+	bp_alt = get_scratch();
   }
 
-  /* create *scratch* for alternate buffer, if we fail return */
   if (bp_alt == NULL) {
-	if ((bp_alt = bfind("*scratch*", TRUE, 0)) == NULL)
 	  return (FALSE);
   }
 
@@ -167,6 +173,22 @@ int killbuffer (int f, int n)
   mlerase();
   return s;
 }
+
+BUFFER* get_scratch(void)
+{
+  BUFFER* bp;
+
+  bp = bfind("*scratch*", FALSE, 0);
+
+  if (bp != NULL)
+	return bp;
+
+  /* create scratch */
+  bp = bfind("*scratch*", TRUE, 0);
+  return bp;
+}
+
+
 
 /* kill the buffer pointed to by bp
  */
