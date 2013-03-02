@@ -27,7 +27,6 @@
 #include <string.h>		/* strncpy(3), strncat(3) */
 #include "estruct.h"
 #include "edef.h"
-#include "search.h"
 
 typedef int	RSIZE;		/* Type for file/region sizes	 */
 typedef short	KCHAR;		/* Type for internal keystrokes	 */
