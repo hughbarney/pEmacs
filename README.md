@@ -23,6 +23,28 @@ All code here is public domain, same as I received it.
 
 *hughbarney@gmail.com February 2013*
 
+##pEmacs V1.04, 02 Mar 2013
+1. Fixed bug where we allowed [List] buffer to be killed
+2. Fixed alignment issues with listbuffers
+3. Added readonly flag to list buffer display
+4. Added buffermenu bound to ^X^B
+5. Moved listbuffers to ^XB
+
+##pEmacs V1.03, 21 Feb 2013
+1. Modified killbuffer to take current buffer as default. This is inline with Mg and Zile.
+2. Renamed main buffer to *scratch*
+
+##pEmacs V1.02, 21 Feb 2013
+1. Added filename completion for ^X^F and ^X^R
+2. Add entry in extendedcommand for the DEL key - note this may not work on all keyboards
+
+##pEmacs V1.01, 19 Feb 2013
+1. Stripped out: 
+    ^X^R Read file
+    ^X^I Insert File
+2. Added:
+    ^X^V View File
+    ^X^Q Toggle Read only
 
 ##pEmacs V1.0,  February 2013
 
@@ -44,28 +66,6 @@ All code here is public domain, same as I received it.
 7. Fixed problem with mlwrite() which caused corruption when printing %s formatted strings.
 
 
-##pEmacs V1.01, 19 Feb 2013
-1. Stripped out: 
-    ^X^R Read file
-    ^X^I Insert File
-2. Added:
-    ^X^V View File
-    ^X^Q Toggle Read only
-
-##pEmacs V1.02, 21 Feb 2013
-1. Added filename completion for ^X^F and ^X^R
-2. Add entry in extendedcommand for the DEL key - note this may not work on all keyboards
-
-##pEmacs V1.03, 21 Feb 2013
-1. Modified killbuffer to take current buffer as default. This is inline with Mg and Zile.
-2. Renamed main buffer to *scratch*
-
-##pEmacs V1.04, 02 Mar 2013
-1. Fixed bug where we allowed [List] buffer to be killed
-2. Fixed alignment issues with listbuffers
-3. Added readonly flag to list buffer display
-4. Added buffermenu bound to ^X^B
-5. Moved listbuffers to ^XB
 
 
 ##Comaprisons with Other MicroEMACS Implementations
