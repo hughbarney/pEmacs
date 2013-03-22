@@ -16,9 +16,10 @@ LFLAGS= -ltermcap
 # For very early Linux
 #LFLAGS= -lbsd
 
-#PREFIX= /usr/local
-PREFIX= ${HOME}
+PREFIX= /usr/local
+#PREFIX= ${HOME}
 BINDIR=	${PREFIX}/bin
+MANDIR=	${PREFIX}/man/man1
 
 HFILES=	estruct.h edef.h efunc.h ebind.h
 
@@ -35,7 +36,8 @@ all:	$(OFILES)
 #	install -c -m 0755 -o bin -g bin -s $(EXEC) $(BINDIR)
 
 install: all
-	install -c -m 0755 -s $(EXEC) $(BINDIR)
+	install -c -m 0755 -o bin -g bin -s $(EXEC) $(BINDIR)
+	install -c -m 0644 -o bin -g bin $(EXEC).1 $(MANDIR)/$(EXEC).1
 
 clean:
 	rm -f *.o *~ *.core *.bak $(EXEC)

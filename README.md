@@ -23,9 +23,34 @@ All code here is public domain, same as I received it.
 
 *hughbarney@gmail.com February 2013*
 
+##pEmacs V1.05, 02 Mar 2013
+1. Added additional navigation to buffer menu
+Space=down, BACKSPACE=up, Enter=Select
+
+##pEmacs V1.04, 02 Mar 2013
+1. Fixed bug where we allowed [List] buffer to be killed
+2. Fixed alignment issues with listbuffers
+3. Added readonly flag to list buffer display
+4. Added buffermenu bound to ^X^B
+5. Moved listbuffers to ^XB
+
+##pEmacs V1.03, 21 Feb 2013
+1. Modified killbuffer to take current buffer as default. This is inline with Mg and Zile.
+2. Renamed main buffer to *scratch*
+
+##pEmacs V1.02, 21 Feb 2013
+1. Added filename completion for ^X^F and ^X^R
+2. Add entry in extendedcommand for the DEL key - note this may not work on all keyboards
+
+##pEmacs V1.01, 19 Feb 2013
+1. Stripped out: 
+    ^X^R Read file
+    ^X^I Insert File
+2. Added:
+    ^X^V View File
+    ^X^Q Toggle Read only
 
 ##pEmacs V1.0,  February 2013
-
 1. In an effort to reduce the code count and allow for a small number of enhancements I have removed what I never use and can easily live without.  (See features removed).  Esratz-Emacs is 5777 lines of code.  pEmacs 1.0 is 5286, this leaves me around 300 lines to implement filename completion.
 
 2. Replaced searching with incremental searching C-S, C-R. Once you have got used to incremental searching you can no longer cope with the two stage searching of MicroEMACS style editors.  Control-S prompts for a search string and searches as you type it, hit Control-S in the prompt and it will search again, C-R will reverse search.  Searching also overlaps once you get to the end of the buffer.  ESC will exit. 
@@ -43,33 +68,6 @@ All code here is public domain, same as I received it.
 
 7. Fixed problem with mlwrite() which caused corruption when printing %s formatted strings.
 
-
-##pEmacs V1.01, 19 Feb 2013
-1. Stripped out: 
-    ^X^R Read file
-    ^X^I Insert File
-2. Added:
-    ^X^V View File
-    ^X^Q Toggle Read only
-
-##pEmacs V1.02, 21 Feb 2013
-1. Added filename completion for ^X^F and ^X^R
-2. Add entry in extendedcommand for the DEL key - note this may not work on all keyboards
-
-##pEmacs V1.03, 21 Feb 2013
-1. Modified killbuffer to take current buffer as default. This is inline with Mg and Zile.
-2. Renamed main buffer to *scratch*
-
-##pEmacs V1.04, 02 Mar 2013
-1. Fixed bug where we allowed [List] buffer to be killed
-2. Fixed alignment issues with listbuffers
-3. Added readonly flag to list buffer display
-4. Added buffermenu bound to ^X^B
-5. Moved listbuffers to ^XB
-
-##pEmacs V1.05, 02 Mar 2013
-1. Added additional navigation to buffer menu
-Space=down, BACKSPACE=up, Enter=Select
 
 ##Comaprisons with Other MicroEMACS Implementations
 
@@ -163,7 +161,7 @@ In an effort to reduce the code count and allow for a small number of enhancemen
     ^X=   Position report; displays line number, buffer size, etc.  
   
 
-##pEmacs 1.04 Desk Card (Mar 2013)
+##pEmacs Desk Card (Mar 2013)
     M-  means to use the <ESC> key prior to using another key  
     ^A  means to use the control key at the same time as the 'A' key  
 
