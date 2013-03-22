@@ -1,0 +1,140 @@
+.\" All source code and documentation to 'Perfect Emacs' is in the Public
+.\" Domain, as were all the original sources I used. 
+.\" -- Hugh Barney,, <hughbarney@gmail.com>
+.\"
+.Dd March 2013
+.Os Perfect Emacs
+.Dt PE 1
+.Sh NAME
+.Nm pe
+.Nd pEmacs, Perfect Emacs text editor
+.Sh SYNOPSIS
+.Nm 
+.Op Ar
+.Sh DESCRIPTION
+Perfect Emacs as an attempt to find the perfect balance between minimalism
+(ie the smallest functional emacs and code) whilst still retaining
+the feeling of 
+.Tn GNU Emacs.
+.sp
+.Pp
+If invoked with no file arguments, the editor creates the
+.Qq *scratch*
+buffer that should be renamed and written to disk
+.Ic ( C-x C-w )
+if the user intends to preserve the contents.
+.Sh OPTIONS
+\-\-version, Show the current version number and exit.
+.Sh ENVIRONMENT
+.Ev Em TERM
+informs the editor to capabilities of the user's terminal. Also the values of
+.Ev Em TERMCAP , TERMPATH ,
+and
+.Ev Em HOME
+must be sane for
+.Xr termcap 5
+to function properly.
+.Sh FILES
+None, aside from those implied by
+.Xr termcap 5 .
+.Pp
+.Sh DIAGNOSTICS
+.Bl -ohang
+.It Em Unbelievable screen size
+The terminal options (see
+.Xr termios 4 )
+have undefined column or row size information, and is usually a sign of a
+broken configuration somewhere. A temporary fix on UN*X is to type at the
+shell:
+.Ic stty cols 80 rows 24
+.It Em Environment variable TERM not defined
+As it says. The majority of users would have TERM = vt100 or
+thereabouts.
+.It Em Insufficient termcap (needs cl & cm abilities)
+Perfect Emacs requires a terminal that can clear the screen and position the cursor. A
+serious system problem if not logged-in via a line-printer.
+.It Em Terminal description too big
+.It Em Can't read terminal capabilities
+.It Em Can't set terminal mode
+.It Em Can't restore terminal flags
+All the above are likely to involve a serious system problem.
+.El
+.Sh KEY BINDINGS
+.nf
+C-A   Begining-of-line  
+C-B   backward-character  
+C-C   copy-region  
+C-D   delete-char  
+C-E   End-of-line  
+C-F   Forward Character  
+C-G   Abort  
+C-H   Backspace  
+C-I   Tab  
+C-J   Newline  
+C-K   Kill to eol  
+C-L   refresh display  
+C-M   Carrage Return    
+C-N   next line  
+C-P   previous line  
+C-Q   Quote Chararcter  
+C-R   Incremenal Search Reverse  
+C-S   Incremenal Search Forward  
+C-V   Page Down  
+C-W   Wipe region (Cut)  
+C-X   CTRL-X command prefix  
+C-Y   Yank  
+    
+M-G   gotoline  
+M-R   query-replace (alias to M-%)  
+M-V   or [Page Up] Scroll up  
+M-W   Copy region to kill buffer.  
+M-%   query-replace  
+M-<   Start of file  
+M->   End of file  
+  
+^@ or M-<spacebar> Set mark at current position. 
+    
+^X^C  Exit. Any unsaved files will require confirmation.  
+^X^F  Find file; read into a new buffer created from filename.  
+^X^V  View File  
+^X^Q  Toggle View Mode  
+^X^S  Save current buffer to disk, using the buffer's filename as the name of  
+^X^W  Write current buffer to disk. Type in a new filename at the prompt to  
+      
+^X^B  Show buffer directory in a window (^X 1 to remove).  
+^XK   Delete a non-displayed buffer.  
+^XX   Switch to next buffer in buffer list.  
+^X2   Split the current window in two	  
+^X1   Show only current window  
+^XO   Move cursor to next window	  
+^X(   Start recording a keyboard macro. Typing ^G or an error aborts.  
+^X)   Stop recording macro.  
+^XE   Execute macro.  
+^X=   Position report; displays line number, buffer size, etc.  
+.fi
+.Sh AUTHORS
+Perfect Emacs is derived from Chris Baird's Ersatz Emacs which was
+based on MicroEMACS 3.6 as released to mod.sources and the Public
+Domain by Daniel Lawrence in 1986, which was itself based on the work
+of Steve Wilhite and George Jones to MicroEMACS 2.0 (then also public
+domain) by Dave Conroy.
+.Pp
+Hugh Barney <hughbarney@gmail.com> stripped out most of the features he
+personally never used from Ersatz Emacs, added incremental search,
+filename completion and a buffer menu
+.Ic ( C-x C-b ).
+.Pp
+A designer knows he has achieved perfection not when there is nothing
+left to add, but when there is nothing left to take away.
+.Pp
+.sp
+.sp
+-- Antoine de Saint-Exupery
+.Sh BUGS
+None known.
+.Sh SECURITY CONSIDERATIONS
+As file writes are done 
+.Qq over the top of
+the existing file, the file ownership and permission bits are preserved,
+however if an error should occur during a save this may leave a damaged file on
+the filesystem.
