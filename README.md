@@ -1,4 +1,4 @@
-#pEmacs or Perfect Emacs
+# pEmacs or Perfect Emacs
 
 pEmacs is a small footprint Emacs derived from Chris Baird's Ersatz Emacs which was based on MicroEMACS 3.6 as released to mod.sources and the Public Domain by Daniel Lawrence in 1986, and was itself based on the work of Steve Wilhite and George Jones to MicroEMACS 2.0 (then also public domain) by Dave Conroy.  I have included a copy of the Ersatz Emacs README at the end of this file.
 
@@ -23,26 +23,26 @@ All code here is public domain, same as I received it.
 
 *hughbarney@gmail.com February 2013*
 
-##pEmacs V1.05, 02 Mar 2013
+## pEmacs V1.05, 02 Mar 2013
 1. Added additional navigation to buffer menu
 Space=down, BACKSPACE=up, Enter=Select
 
-##pEmacs V1.04, 02 Mar 2013
+## pEmacs V1.04, 02 Mar 2013
 1. Fixed bug where we allowed [List] buffer to be killed
 2. Fixed alignment issues with listbuffers
 3. Added readonly flag to list buffer display
 4. Added buffermenu bound to ^X^B
 5. Moved listbuffers to ^XB
 
-##pEmacs V1.03, 21 Feb 2013
+## pEmacs V1.03, 21 Feb 2013
 1. Modified killbuffer to take current buffer as default. This is inline with Mg and Zile.
 2. Renamed main buffer to *scratch*
 
-##pEmacs V1.02, 21 Feb 2013
+## pEmacs V1.02, 21 Feb 2013
 1. Added filename completion for ^X^F and ^X^R
 2. Add entry in extendedcommand for the DEL key - note this may not work on all keyboards
 
-##pEmacs V1.01, 19 Feb 2013
+## pEmacs V1.01, 19 Feb 2013
 1. Stripped out: 
     ^X^R Read file
     ^X^I Insert File
@@ -50,7 +50,7 @@ Space=down, BACKSPACE=up, Enter=Select
     ^X^V View File
     ^X^Q Toggle Read only
 
-##pEmacs V1.0,  February 2013
+## pEmacs V1.0,  February 2013
 1. In an effort to reduce the code count and allow for a small number of enhancements I have removed what I never use and can easily live without.  (See features removed).  Esratz-Emacs is 5777 lines of code.  pEmacs 1.0 is 5286, this leaves me around 300 lines to implement filename completion.
 
 2. Replaced searching with incremental searching C-S, C-R. Once you have got used to incremental searching you can no longer cope with the two stage searching of MicroEMACS style editors.  Control-S prompts for a search string and searches as you type it, hit Control-S in the prompt and it will search again, C-R will reverse search.  Searching also overlaps once you get to the end of the buffer.  ESC will exit. 
@@ -69,7 +69,7 @@ Space=down, BACKSPACE=up, Enter=Select
 7. Fixed problem with mlwrite() which caused corruption when printing %s formatted strings.
 
 
-##Comaprisons with Other MicroEMACS Implementations
+## Comaprisons with Other MicroEMACS Implementations
 
     Editor         Binary   BinSize     KLOC  Files  
 
@@ -82,7 +82,7 @@ Space=down, BACKSPACE=up, Enter=Select
 
 
 
-##Removed From Ersatz-Emacs
+## Removed From Ersatz-Emacs
 
 In an effort to reduce the code count and allow for a small number of enhancements I have removed what I never use and can easily live without.
 
@@ -108,7 +108,7 @@ In an effort to reduce the code count and allow for a small number of enhancemen
     ^X^R  Read file                      strange implemention,is not a view file  
     ^X^I  Insert File                    rarely use, ^X^F and copy region and paste good enough  
 
-##pEmacs Key Bindings
+## pEmacs Key Bindings
     C-A   Begining-of-line  
     C-B   backward-character  
     C-C   copy-region  
@@ -161,11 +161,11 @@ In an effort to reduce the code count and allow for a small number of enhancemen
     ^X=   Position report; displays line number, buffer size, etc.  
   
 
-##pEmacs Desk Card (Mar 2013)
+## pEmacs Desk Card (Mar 2013)
     M-  means to use the <ESC> key prior to using another key  
     ^A  means to use the control key at the same time as the 'A' key  
 
-###Moving the cursor
+### Moving the cursor
     ^F   Forward character   	
     ^B   Backward character  	
     ^N   Next line			
@@ -180,26 +180,26 @@ In an effort to reduce the code count and allow for a small number of enhancemen
     M-V or [Page Up] Scroll up		
     Arrow keys are active
 
-###Deleting and inserting
+### Deleting and inserting
     <-   Delete previous character	
     ^D   Delete next character		
     ^K   Delete to end of line		
 
-###Formatting and transposing
+### Formatting and transposing
     ^Q   Quote next key, so that control codes may be entered into text.
 
-###Searching
+### Searching
     ^S   Incremental Search forward, Esc to exit, ^G to abort, ^S search next
     ^R   As above, but reverse search from cursor position.
 
-###Replacing
+### Replacing
     M-%  Replace with query. Answer with:
 	    Y   replace & continue		N   no replacement & continue
 	    !   replace the rest		?   Get a list of options
 	    .   exit and return to entry point
 	    ^G,'q' or <return> exit and remain at current location
 
-###Copying and moving
+### Copying and moving
     ^@ or M-<spacebar> Set mark at current position.
     ^W   Delete region.
     M-W  Copy region to kill buffer.
@@ -212,7 +212,7 @@ Generally, the procedure for copying or moving text is:
 2. Delete it (with ^W) or copy it (with M-W) into the kill buffer.
 3. Move the cursor to the desired location and yank it back (with ^Y).
 
-###Multiple buffers
+### Multiple buffers
     ^XB   Show buffer directory in a window (^X 1 to remove).
     ^X^B  Buffer menu
     ^X K  Delete a non-displayed buffer.
@@ -220,7 +220,7 @@ Generally, the procedure for copying or moving text is:
 
 A buffer contains a COPY of a document being edited, and must be saved for changes to be kept. Many buffers may be activated at once.
 
-###Buffer Menu
+### Buffer Menu
     Diplay the buffer list in a window and operate on it
     using the following keys, (bound to ^X^B)
     
@@ -233,35 +233,35 @@ A buffer contains a COPY of a document being edited, and must be saved for chang
     2:  select buffer in split window below original window
     q,Q,x,X: exit buffer menu
 
-###Reading from disk
+### Reading from disk
     ^X^F  Find file; read into a new buffer created from filename.
     ^X^V  Read file and set into view mode
 
-###Saving to disk
+### Saving to disk
     ^X^S  Save current buffer to disk, using the buffer's filename
     ^X^W  Write current buffer to disk. Type in a new filename at the prompt
 
-###Multiple windows
+### Multiple windows
     ^X 2  Split the current window in two
     ^X 1  Show only current window
     ^X O  Move cursor to next window	
 
 Many windows may be visible at once on the screen. Windows may show different parts of the same buffer, or each may display a different one.
 
-###Exiting
+### Exiting
     ^X^C  Exit. Any unsaved files will require confirmation.
 
-###Macros
+### Macros
     ^X (  Start recording a keyboard macro. Typing ^G or an error aborts.
     ^X )  Stop recording macro.
     ^X E  Execute macro.
 
-###Special keys
+### Special keys
     ^G   Cancel current command.
     ^L   Redraws the screen completely.
     ^X = Position report; displays line number, buffer size, etc.
 
-##Ersatz-Emacs Original README
+## Ersatz-Emacs Original README
     This shar file contains the source to a microemacs-derived text editor
     that I have been personally hacking on for over a decade.
     
